@@ -6,13 +6,13 @@ This is simple web application using [Python flask](https://flask.palletsproject
 Clone the project
 
 ```bash
-  $ git clone https://github.com/patilharss/github-profile-scraper.git
+  $ git clone https://github.com/TYM1114/gitpeek.git
 ```
 
 Go to the project directory
 
 ```bash
-  $ cd github-profile-scraper
+  $ cd gitpeek
 ```
 
 Install dependencies
@@ -27,4 +27,6 @@ Start the server
   $ flask run
 ```
 
-  
+```bash
+  $Open your browser and visit: http://127.0.0.1:5000
+```
