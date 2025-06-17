@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>GithubScraper</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+
+    <style>
+      .alert {
+        background: green;
+        padding: 1rem;
+        border-radius: 5px;
+        color: white;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="text-align: center;">
+      <h3>Github Profile Scraper</h3>
+    </div>
+
+    <!-- Form -->
+    <div class="container">
+      <form action="/submit" method="POST">
+        <label for="Number One">Username</label>
+        <input
+          type="text"
+          placeholder="username"
+          class="u-full-width"
+          name="username"
+        />        
+        <input type="submit" value="GO!" id="calc_btn" />
+        <br />
+{#jinja#}
+              {% if username is mapping %}
+              <div style="text-align:center;">
+
+              <img src={{ username.image }} style="width:150px;height:150x;">
+              <br>
+              name: {{ username.name }}
+              <br>
+                  user name: <a href={{ username.profilelink }} target="_blank">{{ username.username }}</a>
+              <br>
+              bio: {{ username.bio }}
+              <br>
+              works for : {{ username.worksfor }}
+              <br>
+              location : {{ username.location }}
+              <br>
+              {% if username.twitter != 'None' %}
+                  twitter : <a href={{ username.twitter }} target="_blank">{{ username.twitter [20:] }}</a>
+              {% else %}
+                    twitter: None
+              {% endif %}
+              <br>
+              {% if username.link == 'None' %}
+                  website: None
+              {% else %}
+                  website: <a href={{ username.link}}>{{ username.link }}</a>
+              {% endif %}
+              <br>
+              followers: {{ username.follower }} , following: {{ username.following }}
+              <br>
+              stars: {{ username.star }}
+              <br>
+              Contribution Last Year: {{ username.contributionsinthelastyear }}
+              <br>
+
+
+              <div style="text-align:center;">
+              <div style="text-align:left; margin-left:220px">
+              {% if username.pinnedprojects %}
+              <b>pinned projects:</b>
+              {% for name in username.pinnedprojects %}
+                    <li><span class="my-handle"></span><input type="hidden" name="handles[]" value="{{ name }}"/><a href="https://github.com/{{ username.username }}/{{ name }}" target="_blank">{{ name }}</a></li>
+
+                {% endfor %}
+              {% endif %}
+
+              </div>
+              </div>
+
+
+              <br>
+
+              <div style="text-align:center;">
+              <div style="text-align:left; margin-left:220px">
+
+              {% if username.organization.items() %}
+              <b>Orgnizations:</b>
+              {% for k,v in username.organization.items() %}
+                    <li>{{ k }}: <a href={{ v }}>{{ v }}</a> </li>
+                {% endfor %}
+                  {% endif %}
+              </div>
+              </div>
+                  <div style="text-align:center;">
+                  <div>
+                  <b>Github Stats:</b>
+                    <div style="text-align:center;padding-top:30px">
+                  <img src="https://github-readme-stats.vercel.app/api?username={{ username.username }}&show_icons=true&theme=radical">
+                    </div>
+                  <div style="text-align:center;padding-top:30px">
+                  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username={{ username.username }}&layout=compact">
+                    </div>
+
+                      </div>
+              </p>
+
+              </div>
+
+              </div>
+          {% else %}
+            "Please Enter valid username!"
+          {% endif %}
+      </form>
+    </div>
+    <div style="text-align: center; width: 100%;">
+  <footer>
+      <img src="public/templates/img.png" width="40" height="35" alt="github_logo">
+      <a href="https://github.com/patilharss/github-profile-scraper"  target="_blank">GitHub</a>
+  </footer>
+    </div>
+  </body>
+</html>
